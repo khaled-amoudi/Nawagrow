@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class PartRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,7 +31,7 @@ class CategoryRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'you should enter the category name !!',
+            'name.required' => 'you should enter the part name !!',
         ];
     }
 }

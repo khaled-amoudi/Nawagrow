@@ -15,7 +15,7 @@ class PartFactory extends Factory
     {
         return [
             'name' => $this->faker->word(),
-            'category_id' => 4,
+            'category_id' => 3,
         ];
     }
 }

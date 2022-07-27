@@ -20,11 +20,9 @@ Route::get('/', function () {
 
 
 
-Route::name('category.')->controller(CategoryController::class)->group(function(){
+// Route::name('category.')->controller(CategoryController::class)->group(function(){
 
-    Route::get('/', 'index')->name('index');
-    Route::post('/category/create','create')->name('create');
-    Route::put('/category/update/{id}', 'update')->name('update');
-    Route::delete('/category/delete/{id}', 'delete')->name('delete');
 
-});
+
+// });
+Route::apiResource('/category', CategoryController::class);
