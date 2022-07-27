@@ -41,6 +41,7 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'is_admin' => ['boolean'],
         ]);
 
         if (!$data) {
@@ -50,7 +51,8 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password)
+            'password' => bcrypt($request->password),
+            'is_admin' => $request->is_admin ?? 0
         ]);
 
         $token = $user->createToken('my-app-token')->plainTextToken;

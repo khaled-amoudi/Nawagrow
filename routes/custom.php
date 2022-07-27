@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PartController;
+use App\Http\Controllers\TopicNotificationController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -33,18 +34,20 @@ Route::controller(UserController::class)->group(function() {
 
 
 // Authentication Routes
-Route::middleware(['throttle:60,1', 'Language', 'auth:sanctum'])->group(function () { // use throttle to define the maximum number of requests per minute
+Route::middleware(['throttle:60,1', 'Language', 'auth:sanctum', 'CheckAdmin'])->group(function () { // use throttle to define the maximum number of requests per minute
     Route::apiResource('/category', CategoryController::class);
 
     Route::apiResource('/part', PartController::class);
 
-    Route::get('helpers', function(){
-        return url_info();
-    })->name('helpers');
 });
+
+Route::get('helpers', function(){
+    return url_info();
+})->name('helpers');
 
 Route::post('upload', [FileController::class, 'uploadFile'])->name('upload');
 
+Route::get('notification', [TopicNotificationController::class, 'send']);
 // category.index  [GET]
 // category.store [POST]
 // category.show [GET]

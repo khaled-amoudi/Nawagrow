@@ -25,4 +25,4 @@ Route::get('/', function () {
 
 
 // });
-Route::apiResource('/category', CategoryController::class);
+// Route::apiResource('/category', CategoryController::class);

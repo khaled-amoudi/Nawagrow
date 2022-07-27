@@ -19,6 +19,7 @@ class UserFactory extends Factory
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt(123456789), // password
+            'is_admin' => 0,
             'remember_token' => Str::random(10),
             // 'name' => $this->faker->name(),
             // 'email' => $this->faker->unique()->safeEmail(),
