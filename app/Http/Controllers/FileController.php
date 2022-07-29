@@ -29,44 +29,24 @@ class FileController extends Controller
 
 
 
-
-
-
-        // if ($request->hasFile('image_base64')) {
-        //     $this->validate($request, ['image_base64' => 'required|file|image|mimes:jpeg,png,gif,svg']);
-
-        //     $file = $request->file('image_base64');
-        //     $filename = time().'_'.$file->getClientOriginalName() .".".$file->getClientOriginalExtension();
-        //     $response = Storage::putFileAs('images_base64',$file,Str::slug($filename));
-        // } else {
-        //     //
-        // }
-
-        // if ($request->image_base64) {
-        //     $folderPath = "uploads/";
-
-        //     $base64Image = explode(";base64,", $request->image_base64);
-        //     $explodeImage = explode("image/", $base64Image[0]);
-        //     $imageType = $explodeImage[1];
-        //     $image_base64 = base64_decode($base64Image[1]);
-        //     $file = $folderPath . uniqid() . '. '.$imageType;
-
-        //     file_put_contents($file, $image_base64);
-        // } else {
-        //     $file = 'no no no';
-        // }
-
         if ($request->hasFile('image_base64')) {
             if($request->file('image_base64')->isValid()) {
                 try {
-                    $image64 = base64_encode(file_get_contents($request->file('image_base64')));
-                    $filename64 = 'base64_' . time() . '.' . $request->file('image_base64')->extension();
-                    Storage::put('images_base64/', $filename64);
+                    // $image64 = base64_encode(file_get_contents($request->file('image_base64')));
+                    $image64 = file_get_contents($request->file('image_base64'));
+
+
+                    // $filename64 = 'base64_' . time() . '.' . $request->file('image_base64')->extension();
+                    // Storage::put('images_base64/', $image64);
+                    // $request->file('image_base64')->store('images_base64');
                 } catch (FileNotFoundException $e) {
-                    return "no no no";
+                    return $e->getMessage();
                 }
             }
         }
+
+
+
 
 
 
@@ -77,7 +57,6 @@ class FileController extends Controller
         // $originalPath = public_path() . '/images/';
         // $thumbnailImage->save($originalPath . time() . $originalImage->getClientOriginalName());
         $thumbnailImage->resize(150, 150);
-        // save thumbnail image in thumbnail folder.
         $thumbnailPath = public_path() . '/thumbnail/';
         $thumbnailImage->save($thumbnailPath . time() . $originalImage->getClientOriginalName());
 
@@ -91,7 +70,7 @@ class FileController extends Controller
         $uploaded = File::Create([
             'file' => $fileName,
             'image' => $imageName,
-            'image_base64' => $filename64
+            'image_base64' => $image64
         ]);
 
 
@@ -100,7 +79,4 @@ class FileController extends Controller
         }
         return response()->success($uploaded);
     }
-
-
-
 }

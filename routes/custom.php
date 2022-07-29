@@ -47,7 +47,7 @@ Route::get('helpers', function(){
 
 Route::post('upload', [FileController::class, 'uploadFile'])->name('upload');
 
-Route::get('notification', [TopicNotificationController::class, 'send']);
+Route::get('notification/{topic_id}', [TopicNotificationController::class, 'send']);
 // category.index  [GET]
 // category.store [POST]
 // category.show [GET]

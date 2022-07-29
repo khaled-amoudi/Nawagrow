@@ -9,8 +9,11 @@ use Illuminate\Support\Facades\Notification;
 
 class TopicNotificationController extends Controller
 {
-    public function send(){
-        $users = User::all();
+    public static function send($topic_id){
+        $users = User::whereHas('topics', function($query) use ($topic_id) {
+            return $query->where('topic_id', $topic_id);
+        })->get();
+
         $userData = [
             'greeting' => 'sss',
             'body' => 'ddd',

@@ -52,16 +52,20 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'is_admin' => $request->is_admin ?? 0
+            'is_admin' => $request->is_admin ?? 0,
         ]);
-
         $token = $user->createToken('my-app-token')->plainTextToken;
 
-        $response = [
-            'user' => $user,
-            'token' => $token
-        ];
-        return response($response, 201);
+        if($user && $token){
+
+            $user->topics()->attach([2, 3]); // attach([1, 2])
+
+            $response = [
+                'user' => $user,
+                'token' => $token
+            ];
+            return response()->success($response);
+        }
     }
 
 
