@@ -29,7 +29,7 @@ class NotificationTopic extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -38,13 +38,13 @@ class NotificationTopic extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-            ->greeting($this->userData['greeting'])
-            ->line($this->userData['body'])
-            ->line($this->userData['thanks']);
-    }
+    // public function toMail($notifiable)
+    // {
+    //     return (new MailMessage)
+    //         ->greeting($this->userData['greeting'])
+    //         ->line($this->userData['body'])
+    //         ->line($this->userData['thanks']);
+    // }
 
     /**
      * Get the array representation of the notification.
@@ -54,8 +54,12 @@ class NotificationTopic extends Notification
      */
     public function toArray($notifiable)
     {
+
         return [
-            //
+            // 'name' => $this->user->name,
+            // 'email' => $this->user->email,
+            'name' => $this->userData['greeting'],
+            'email' => $this->userData['body'],
         ];
     }
 }

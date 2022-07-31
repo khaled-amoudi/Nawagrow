@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
 use App\Models\File;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
-    $images = File::get(['image_base64']);
-    return view('welcome', compact('images'));
+    // $images = File::get(['image_base64']);
+    // $notifications = auth()->user()->unreadNotifications;
+    // dd($notifications);
+    // return view('home', compact('images', 'notifications'));
+    return redirect('home');
 });
 
 
@@ -28,3 +34,18 @@ Route::get('/', function () {
 
 // });
 // Route::apiResource('/category', CategoryController::class);
+
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', function() {
+    $images = File::get(['image_base64']);
+    if(auth()->user()){
+        $notifications = auth()->user()->unreadNotifications;
+    } else {
+        $notifications = [];
+    }
+    return view('home', compact('images', 'notifications'));
+    // return response()->json($notifications);
+
+})->name('home');
