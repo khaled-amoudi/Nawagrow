@@ -8,6 +8,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\TopicNotificationController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +39,6 @@ Route::middleware(['throttle:60,1', 'Language', 'auth:sanctum', 'CheckAdmin'])->
     Route::apiResource('/category', CategoryController::class);
 
     Route::apiResource('/part', PartController::class);
-
 });
 
 Route::get('helpers', function(){

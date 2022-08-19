@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\QueryFilters\Admin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -77,5 +78,29 @@ class UserController extends Controller
             $request->user()->tokens()->delete();
         }
         return response()->success(200, 'user logged out');
+    }
+
+
+
+
+    public function pipeline(){
+
+
+        $pipelines = app(Pipeline::class)
+            ->send(User::query())
+            ->through([
+                Admin::class
+                ])
+            ->thenReturn();
+        $users = $pipelines->get();
+        return view('users-pipeline', compact('users'));
+
+
+        // $users = User::query();
+        // if(request()->has('isAdmin')){
+        //     $users->where('is_admin', request('isAdmin'))->get();
+        // }
+        // $users = $users->get();
+        // return view('users-pipeline', compact('users'));
     }
 }

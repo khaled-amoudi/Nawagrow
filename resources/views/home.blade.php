@@ -16,21 +16,21 @@
                                 <i class="fa-solid fa-bell"></i>
                                 <span
                                     class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    @if (auth()->user() && isset($notifications))
+                                    {{-- @if (auth()->user() && isset($notifications))
                                         {{ $notifications->count() }}
-                                    @endif
+                                    @endif --}}
                                     <span class="visually-hidden">unread messages</span>
                                 </span>
                             </a>
 
                             <ul class="dropdown-menu dropdown-menu-notification" aria-labelledby="dropdownMenuLink">
 
-                                @if (auth()->user() && isset($notifications))
+                                {{-- @if (auth()->user() && isset($notifications))
                                     @foreach ($notifications as $notification)
                                         <li><a class="dropdown-item" href="#">{{ $notification->data['name'] }} send
                                                 you a notification</a></li>
                                     @endforeach
-                                @endif
+                                @endif --}}
 
                             </ul>
                         </div>
@@ -45,14 +45,15 @@
                         @endif
 
                         {{ __('You are logged in!') }}
-
-                        @if (isset($images))
-                            @foreach ($images as $image)
-                                <img src="data:image/svg;base64,{{ $image->image_base64 }}" width="100px" height="100px"
-                                    style="margin-left: 5px" alt="">
-                            @endforeach
-                        @endif
                     </div>
+                </div>
+                <div class="mt-5">
+                    @if (isset($images))
+                        @foreach ($images as $image)
+                            <img src="data:image/svg;base64,{{ $image->image_base64 }}" width="75px" height="75px"
+                                style="margin-left: 5px; border-radius: 50%" alt="">
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>

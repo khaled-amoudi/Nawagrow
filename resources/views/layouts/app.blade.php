@@ -98,6 +98,34 @@
     </div>
 
     @yield('scripts')
+
+    <script>
+        // Import the functions you need from the SDKs you need
+        import {
+            initializeApp
+        } from "firebase/app";
+        import {
+            getAnalytics
+        } from "firebase/analytics";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyDAcRNwBERP82FmiKCMvmM0KxuS4OizWpg",
+            authDomain: "rt-laravel-notifications.firebaseapp.com",
+            projectId: "rt-laravel-notifications",
+            storageBucket: "rt-laravel-notifications.appspot.com",
+            messagingSenderId: "86889874098",
+            appId: "1:86889874098:web:89c327b67d17c540327fab",
+            measurementId: "G-CVSF58VSD3"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
 </body>
 
 </html>

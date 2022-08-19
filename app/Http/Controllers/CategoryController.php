@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Support\Facades\Session;
@@ -70,8 +71,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = new CategoryResource(Category::find($id));
-
+        // $category = new CategoryResource(Category::find($id));
+        $category = DB::select('CALL get_category_by_id('.$id.')');
         if (!$category) {
             return response()->fail(404, "this category does not exist !!");
         }

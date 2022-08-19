@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PartRequest;
-use App\Http\Resources\PartResource;
 use App\Models\Part;
+use App\Http\Requests\PartRequest;
+use Illuminate\Support\Facades\DB;
+use App\Http\Resources\PartResource;
 
 class PartController extends Controller
 {
@@ -15,8 +16,9 @@ class PartController extends Controller
      */
     public function index()
     {
-        $parts_res = Part::get();
-        $parts = PartResource::collection($parts_res);
+        // $parts_res = Part::get();
+        // $parts = PartResource::collection($parts_res);
+        $parts = DB::select('SELECT * FROM view_category_parts');
 
         if (!isset($parts)) {
             return response()->fail(404, 'There is no parts yet !!');
