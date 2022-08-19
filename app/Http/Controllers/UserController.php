@@ -79,28 +79,4 @@ class UserController extends Controller
         }
         return response()->success(200, 'user logged out');
     }
-
-
-
-
-    public function pipeline(){
-
-
-        $pipelines = app(Pipeline::class)
-            ->send(User::query())
-            ->through([
-                Admin::class
-                ])
-            ->thenReturn();
-        $users = $pipelines->get();
-        return view('users-pipeline', compact('users'));
-
-
-        // $users = User::query();
-        // if(request()->has('isAdmin')){
-        //     $users->where('is_admin', request('isAdmin'))->get();
-        // }
-        // $users = $users->get();
-        // return view('users-pipeline', compact('users'));
-    }
 }
