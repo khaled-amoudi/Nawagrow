@@ -58,4 +58,3 @@ Route::post('/store-token', [FirebaseNotficationsController::class, 'storeToken'
 Route::post('/send-web-notification', [FirebaseNotficationsController::class, 'sendNotification'])->name('send.web-notification');
 
 
-Route::get('/pipeline', [UserController::class, 'pipeline']);
