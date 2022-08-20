@@ -18,4 +18,3 @@ create database and edit value of database in .env file
 
 #
 
-the postman collection in root folder named (ApiPostmanCollection).
